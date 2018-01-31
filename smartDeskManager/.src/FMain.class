@@ -1,0 +1,76 @@
+' Gambas class file
+
+
+Public Sub Form_Open()
+  Dim profile As String
+  
+  lst_profiles.Clear()
+  For Each profile In Dir(User.Home & "/.desktopProfiles/", "*", gb.Directory)
+    If Exist(User.Home & "/.desktopProfiles/" & profile & "/firstWifi") Then
+      lst_profiles.Add(profile)
+    Else
+      lst_profiles.Add(profile)
+    Endif
+  Next
+  If Exist(User.Home & "/.config/zed/noSD") Then
+    CheckBox1.Value = False
+  Else
+    CheckBox1.Value = True
+  Endif
+
+End
+
+Public Sub Button1_Click()
+  
+  Exec ["caja", User.Home & "/.desktopProfiles/" & lst_profiles.Text & "/Desktop"]
+
+End
+
+Public Sub btn_remove_Click()
+  Dim MAC As String
+  Dim profile As String
+  
+  If Message.Question("Are you sure to delete this profile?", "Yes", "No") = 1 Then
+      For Each MAC In Dir(User.Home & "/.desktopProfiles/", "*", gb.File)
+      If File.Load(User.Home & "/.desktopProfiles/" & MAC) = lst_profiles.Text Then
+        Exec ["rm", "-r", User.Home & "/.desktopProfiles/" & lst_profiles.Text]
+        Exec ["rm", "-r", User.Home & "/.desktopProfiles/" & MAC]
+      Endif
+    Next
+  Endif
+  
+  lst_profiles.Clear()
+  For Each profile In Dir(User.Home & "/.desktopProfiles/", "*", gb.Directory)
+    If Exist(User.Home & "/.desktopProfiles/" & profile & "/firstWifi") Then
+      lst_profiles.Add(profile)
+    Else
+      lst_profiles.Add(profile)
+    Endif
+  Next
+End
+
+Public Sub CheckBox1_Click()
+
+  If CheckBox1.Value Then
+    Exec ["rm", User.Home & "/.config/zed/noSD"]
+  Else
+    Exec ["touch", User.Home & "/.config/zed/noSD"]
+  Endif
+
+End
+
+Public Sub Timer1_Timer()
+  Dim profile As String
+  
+  If Dir(User.Home & "/.desktopProfiles/", "*", gb.Directory).Count <> lst_profiles.Count Then
+    lst_profiles.Clear()
+    For Each profile In Dir(User.Home & "/.desktopProfiles/", "*", gb.Directory)
+      If Exist(User.Home & "/.desktopProfiles/" & profile & "/firstWifi") Then
+        lst_profiles.Add(profile)
+      Else
+        lst_profiles.Add(profile)
+      Endif
+    Next
+  Endif
+
+End

@@ -1,0 +1,26 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,54,41)
+  Text = ("SmartDesk Manager")
+  { lst_profiles ListBox
+    MoveScaled(1,1,52,33)
+  }
+  { Button1 Button
+    MoveScaled(1,35,10,4)
+    Text = ("Open")
+  }
+  { btn_remove Button
+    MoveScaled(12,35,11,4)
+    Text = ("Remove")
+  }
+  { CheckBox1 CheckBox
+    MoveScaled(31,35,24,4)
+    Text = ("Enable SmartDesk")
+    Value = CheckBox.True
+  }
+  { Timer1 #Timer
+    #MoveScaled(42,19)
+    Enabled = True
+  }
+}

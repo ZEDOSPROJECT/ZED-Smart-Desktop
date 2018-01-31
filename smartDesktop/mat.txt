@@ -1,0 +1,8 @@
+#Command to get ssid:
+iwgetid -r
+
+#Reset Desktop Icons
+killall caja
+
+#File of User Dirs:
+~/.config/user-dirs.dirs
